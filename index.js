@@ -123,11 +123,11 @@ bot.command('gw', async (ctx) => {
             
             - Игрок тура: ${bestPlayer.first_name} ${bestPlayer.second_name} - ${gw.top_element_info.points} очков 🏅🏅🏅
             
-            - Самый популярный игрок: ${mostSelected.first_name} ${mostSelected.second_name} 🌟🌟🌟 
-            - Самый популярный трансфер: ${mostTrIn.first_name} ${mostTrIn.second_name} 🍀🍀🍀
+            - Самый популярный игрок: ${mostSelected.first_name} ${mostSelected.second_name} 🌟
+            - Самый популярный трансфер: ${mostTrIn.first_name} ${mostTrIn.second_name} 🍀
             
-            🚢🚢🚢 Самый популярный капитан: ${mostCaptained.first_name} ${mostCaptained.second_name} 🚢🚢🚢
-            🛶🛶🛶 Самый популярный вице-капитан: ${mostVC.first_name} ${mostVC.second_name} 🛶🛶🛶
+            🚢 Самый популярный капитан: ${mostCaptained.first_name} ${mostCaptained.second_name} 🚢
+            🛶 Самый популярный вице-капитан: ${mostVC.first_name} ${mostVC.second_name} 🛶
             
         `);
     } else {
