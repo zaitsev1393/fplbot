@@ -121,7 +121,7 @@ async function filterAbbrs(ctx) {
 
     for(let i = 0; i < splitMessage.length; i++) {
         for(let option in abbrVoc) {
-            if(abbrVoc[option].map(w => w.toLowerCase()).includes(splitMessage[i])) {
+            if(abbrVoc[option].map(w => w.toLowerCase()).includes(splitMessage[i].toLowerCase())) {
                 splitMessage[i] = option;
             }
         }
