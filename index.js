@@ -83,7 +83,7 @@ bot.command("filter", ctx => {
     if(param === "off") isFilteringAbbrs = false;
     console.log("filtering abbrs: ", isFilteringAbbrs);
 });
-
+//
 bot.command('abbr', ctx => {
     if(!ctx.update.message.text.split(' ')[1])
         return;
@@ -99,18 +99,6 @@ bot.command('abbr', ctx => {
 
 });
 
-bot.on("text", ctx => {
-
-    let message = ctx.update.message.text.toLowerCase();
-
-    if(isFilteringAbbrs) {
-        filterAbbrs(ctx);
-    }
-    if(message.match("бруно|фернандеш")) {
-        ctx.reply(`Ты хотел сказать Пенандеш?`)
-    }
-
-});
 
 
 
@@ -228,6 +216,20 @@ bot.command('tur', (ctx) => {
             ctx.reply('Начало ' + timeLeft + ' и ни секундой раньше.');
         })
 });
+
+bot.on("text", ctx => {
+
+    let message = ctx.update.message.text.toLowerCase();
+
+    if(isFilteringAbbrs) {
+        filterAbbrs(ctx);
+    }
+    if(message.match("бруно|фернандеш")) {
+        ctx.reply(`Ты хотел сказать Пенандеш?`)
+    }
+
+});
+
 
 function formatName(name) {
     let newName = name.replace("é", "e");
