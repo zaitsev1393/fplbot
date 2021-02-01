@@ -67,8 +67,6 @@ const abbrVoc = {
     "Вулверхэмптон Уондерерс": ["ВУ", "Волки", "WOL", "WW", "Wolves"]
 };
 
-abbrVoc
-
 let abbrValues = [];
 
 Object.values(abbrVoc)
@@ -114,24 +112,7 @@ bot.on("text", ctx => {
 
 });
 
-async function filterAbbrs(ctx) {
-    let splitMessage = ctx.update.message.text.split(/[ ,.]+/g);
 
-    if(!splitMessage.some(word => abbrValues.includes(word.toLowerCase()))) return;
-
-    for(let i = 0; i < splitMessage.length; i++) {
-        for(let option in abbrVoc) {
-            if(abbrVoc[option].map(w => w.toLowerCase()).includes(splitMessage[i].toLowerCase())) {
-                splitMessage[i] = option;
-            }
-        }
-    }
-
-    let formattedMessage = splitMessage.join(" ");
-
-    await ctx.reply(`Я увидел тут несколько слов, которые могут расшифровать только люди с трехзначным IQ. Вот перевод:`);
-    await ctx.reply(formattedMessage);
-}
 
 bot.command('info', (ctx) => {
     ctx.reply(`🍆🍆🍆 Ну-ка, садись на коленку, а еще лучше - на куканку: расскажу тебе, что я за овощ. 🍆🍆🍆
@@ -261,3 +242,22 @@ function getFplStats() {
 bot.launch().then(() => {
     console.log('bot is launched!')
 });
+
+async function filterAbbrs(ctx) {
+    let splitMessage = ctx.update.message.text.split(/[ ,.]+/g);
+
+    // if(!splitMessage.some(word => abbrValues.includes(word.toLowerCase()))) return;
+
+    for(let i = 0; i < splitMessage.length; i++) {
+        for(let option in abbrVoc) {
+            if(abbrVoc[option].map(w => w.toLowerCase()).includes(splitMessage[i].toLowerCase())) {
+                splitMessage[i] = option;
+            }
+        }
+    }
+
+    let formattedMessage = splitMessage.join(" ");
+
+    await ctx.reply(`Я увидел тут несколько слов, которые могут расшифровать только люди с трехзначным IQ. Вот перевод:`);
+    await ctx.reply(formattedMessage);
+}
