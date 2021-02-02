@@ -110,6 +110,7 @@ bot.command('info', (ctx) => {
         /managers - показать, сколько людей не знают, что такое личная жизнь
         /gw 2 - показать инфу о втором туре
         /abbr - перевести аббревиатуру
+        /calendar - календарь туров
     
     `);
 });
@@ -218,6 +219,26 @@ bot.command('tur', (ctx) => {
         })
 });
 
+bot.command('calendar', async ctx => {
+    let stats = await getFplStats();
+    let emojisVoc = ['🏆', '⚽', '🏟️', '🇬🇧', '🔥', '💯', '🎖️', '🏅', '🥅', '🎯', '🚩', '🔪', '⏱️'];
+    let remainedGameweeks = stats
+        .events
+        .filter(e => new Date(e.deadline_time).getTime() > Date.now())
+        .map(e => ({
+            name: e.name,
+            deadline: moment(e.deadline_time).format("DD MMM YYYY HH:mm")
+        }));
+    console.log(remainedGameweeks);
+    let calendar = '';
+    remainedGameweeks.forEach(gw => {
+        let emoji = emojisVoc[Math.floor(Math.random() * emojisVoc.length)];
+        calendar += `${ emoji } <b>${ gw.name }</b> - ${ gw.deadline } \n`
+    });
+    await ctx.reply('Номер тура и дедлайн замен:');
+    await ctx.replyWithHTML(calendar);
+});
+
 bot.on("text", ctx => {
 
     let message = ctx.update.message.text.toLowerCase();
@@ -230,7 +251,6 @@ bot.on("text", ctx => {
     }
 
 });
-
 
 function formatName(name) {
     let newName = name.replace("é", "e");
