@@ -222,6 +222,7 @@ bot.command('tur', (ctx) => {
 bot.command('calendar', async ctx => {
     let stats = await getFplStats();
     let emojisVoc = ['🏆', '⚽', '🏟️', '🇬🇧', '🔥', '💯', '🎖️', '🏅', '🥅', '🎯', '🚩', '🔪', '⏱️'];
+    let calendar = '';
     let remainedGameweeks = stats
         .events
         .filter(e => new Date(e.deadline_time).getTime() > Date.now())
@@ -229,8 +230,7 @@ bot.command('calendar', async ctx => {
             name: e.name,
             deadline: moment(e.deadline_time).format("DD MMM YYYY HH:mm")
         }));
-    console.log(remainedGameweeks);
-    let calendar = '';
+ 
     remainedGameweeks.forEach(gw => {
         let emoji = emojisVoc[Math.floor(Math.random() * emojisVoc.length)];
         calendar += `${ emoji } <b>${ gw.name }</b> - ${ gw.deadline } \n`
