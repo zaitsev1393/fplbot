@@ -219,6 +219,24 @@ bot.command('tur', (ctx) => {
         })
 });
 
+bot.command('injuries', async ctx => {
+    await ctx.reply("А кто это тут такой не любит одевать щитки???");
+    const stats = await getFplStats();
+    const injuredPlayers = stats
+        .elements
+        .filter(player => player.news.includes("injury"))
+        .map(player => ({
+            name: player.web_name,
+            info: player.news
+        }));
+
+    let injuredInfo = '';
+    injuredPlayers.forEach(player => {
+        injuredInfo += `${ player.name } - ${ player.info } \n`
+    });
+    ctx.reply(injuredInfo);
+});
+
 bot.command('calendar', async ctx => {
     let stats = await getFplStats();
     let emojisVoc = ['🏆', '⚽', '🏟️', '🇬🇧', '🔥', '💯', '🎖️', '🏅', '🥅', '🎯', '🚩', '🔪', '⏱️'];
@@ -230,7 +248,7 @@ bot.command('calendar', async ctx => {
             name: e.name,
             deadline: moment(e.deadline_time).format("DD MMM YYYY HH:mm")
         }));
- 
+
     remainedGameweeks.forEach(gw => {
         let emoji = emojisVoc[Math.floor(Math.random() * emojisVoc.length)];
         calendar += `${ emoji } <b>${ gw.name }</b> - ${ gw.deadline } \n`
