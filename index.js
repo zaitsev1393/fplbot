@@ -222,19 +222,38 @@ bot.command('tur', (ctx) => {
 bot.command('injuries', async ctx => {
     await ctx.reply("А кто это тут такой не любит одевать щитки???");
     const stats = await getFplStats();
+    let data = {};
+    let teams = stats.teams.map(e => ({
+        code: e.code,
+        name: e.name
+    }));
+
     const injuredPlayers = stats
         .elements
         .filter(player => player.news.includes("injury"))
         .map(player => ({
             name: player.web_name,
+            team: teams.find(t => t.code === player.team_code).name,
             info: player.news
         }));
 
-    let injuredInfo = '';
     injuredPlayers.forEach(player => {
-        injuredInfo += `${ player.name } - ${ player.info } \n`
+        if(!data[player.team]) {
+            data[player.team] = [];
+        }
+        data[player.team].push( player );
     });
-    ctx.reply(injuredInfo);
+
+    let injuredInfo = '';
+
+    for(let e in data) {
+        injuredInfo += `\n <b> ${ e }: </b> \n`;
+        data[e].forEach(player => {
+            injuredInfo += ` - ${ player.name } - <i> ${ player.info } </i> \n`
+        })
+    }
+
+    ctx.replyWithHTML(injuredInfo);
 });
 
 bot.command('calendar', async ctx => {
