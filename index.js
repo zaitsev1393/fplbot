@@ -188,54 +188,54 @@ ${playerType.name === "ГК" ? getGkInfo(playerInfo) : ""}
   }
 });
 
-// bot.command("gw", async (ctx) => {
-//   let stats = await getFplStats();
-//   let num = +ctx.update.message.text.split(" ")[1];
-//   if (
-//     num &&
-//     Number.isInteger(num) &&
-//     +num <= +stats.events.find((e) => e.is_current).id &&
-//     num > 0
-//   ) {
-//     let gw = stats.events.find((e) => e.id === num);
-//     let bestPlayer = stats.elements.find((e) => e.id === gw.top_element);
-//     let mostSelected = stats.elements.find((e) => e.id === gw.most_selected);
-//     let mostTrIn = stats.elements.find((e) => e.id === gw.most_transferred_in);
-//     let mostCaptained = stats.elements.find((e) => e.id === gw.most_captained);
-//     let mostVC = stats.elements.find((e) => e.id === gw.most_vice_captained);
-//     ctx.reply(`Информация о туре ${num}:
+bot.command("gw", async (ctx) => {
+  let stats = await getFplStats();
+  let num = +ctx.update.message.text.split(" ")[1];
+  if (
+    num &&
+    Number.isInteger(num) &&
+    +num <= +stats.events.find((e) => e.is_current).id &&
+    num > 0
+  ) {
+    let gw = stats.events.find((e) => e.id === num);
+    let bestPlayer = stats.elements.find((e) => e.id === gw.top_element);
+    let mostSelected = stats.elements.find((e) => e.id === gw.most_selected);
+    let mostTrIn = stats.elements.find((e) => e.id === gw.most_transferred_in);
+    let mostCaptained = stats.elements.find((e) => e.id === gw.most_captained);
+    let mostVC = stats.elements.find((e) => e.id === gw.most_vice_captained);
+    ctx.reply(`Информация о туре ${num}:
 
-//             Сыгран: ${gw.finished ? "Да" : "Пока нет"} 🎮
-//             Трансферов: ${gw.transfers_made} ✍️
+            Сыгран: ${gw.finished ? "Да" : "Пока нет"} 🎮
+            Трансферов: ${gw.transfers_made} ✍️
 
-//             - Средний счет: ${
-//               gw.average_entry_score ? gw.average_entry_score : "та короче"
-//             } 📊
-//             - Лучший счет: ${gw.highest_score ? gw.highest_score : "отсоси"} 🎯
+            - Средний счет: ${
+              gw.average_entry_score ? gw.average_entry_score : "та короче"
+            } 📊
+            - Лучший счет: ${gw.highest_score ? gw.highest_score : "отсоси"} 🎯
 
-//             - Игрок тура: ${bestPlayer.first_name} ${
-//       bestPlayer.second_name
-//     } - ${gw.top_element_info.points} очков 🏅🏅🏅
+            - Игрок тура: ${bestPlayer.first_name} ${
+      bestPlayer.second_name
+    } - ${gw.top_element_info.points} очков 🏅🏅🏅
 
-//             - Самый популярный игрок: ${mostSelected.first_name} ${
-//       mostSelected.second_name
-//     } 🌟
-//             - Самый популярный трансфер: ${mostTrIn.first_name} ${
-//       mostTrIn.second_name
-//     } 🍀
+            - Самый популярный игрок: ${mostSelected.first_name} ${
+      mostSelected.second_name
+    } 🌟
+            - Самый популярный трансфер: ${mostTrIn.first_name} ${
+      mostTrIn.second_name
+    } 🍀
 
-//             🚢 Самый популярный капитан: ${mostCaptained.first_name} ${
-//       mostCaptained.second_name
-//     } 🚢
-//             🛶 Самый популярный вице-капитан: ${mostVC.first_name} ${
-//       mostVC.second_name
-//     } 🛶
+            🚢 Самый популярный капитан: ${mostCaptained.first_name} ${
+      mostCaptained.second_name
+    } 🚢
+            🛶 Самый популярный вице-капитан: ${mostVC.first_name} ${
+      mostVC.second_name
+    } 🛶
 
-//         `);
-//   } else {
-//     ctx.reply("Не шали, петушок.");
-//   }
-// });
+        `);
+  } else {
+    ctx.reply("Не шали, петушок.");
+  }
+});
 
 bot.command("tur", (ctx) => {
   getFplStats().then((data) => {
